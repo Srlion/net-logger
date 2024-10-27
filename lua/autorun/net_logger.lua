@@ -42,11 +42,12 @@ end
 function net.Receive(message_name, callback)
     local wrapped_callback
     if callback then
-        wrapped_callback = function(len, ply)
+        wrapped_callback = function(bits, ply)
             local sender = SERVER and (IsValid(ply) and ply:Nick() or "Unknown") or "Server"
-            print(string.format("[NetLogger] Received from %s: %s (%d bytes)", sender, message_name, len or 0))
+            local bytes = math.ceil(bits / 8)
+            print(string.format("[NetLogger] Received from %s: %s (%d bytes)", sender, message_name, bytes))
 
-            return callback(len, ply)
+            return callback(bits, ply)
         end
     end
 
