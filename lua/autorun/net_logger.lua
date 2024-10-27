@@ -25,7 +25,7 @@ if SERVER then
         local bytes = net.BytesWritten()
         local target = IsEntity(ply) and ply:Nick() or "Multiple Players"
 
-        print(string.format("[NetLogger] Sent to %s: %s (%d bytes)", target, current_message_name, bytes))
+        print(string.format("[NetLogger] Sent to %s: %s (%d bytes)", target, current_message_name, bytes - 3))
 
         return originalSend(ply)
     end
@@ -33,7 +33,7 @@ if SERVER then
     function net.Broadcast()
         local bytes = net.BytesWritten()
 
-        print(string.format("[NetLogger] Broadcast: %s (%d bytes)", current_message_name, bytes))
+        print(string.format("[NetLogger] Broadcast: %s (%d bytes)", current_message_name, bytes - 3))
 
         return originalBroadcast()
     end
